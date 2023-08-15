@@ -15,8 +15,17 @@
   </head>
   <body>
     <button id="btn">Call FuncName</button>
+    <input type="text" id="input" placeholder="Enter a word">
+    <button id="nya">Nyanify</button>
+    <p id="output"></p>
     <script>
-      document.getElementById('btn').addEventListener('click', () => {
+      document.getElementById('btn').addEventListener('click', () => {console.log(nyanify("test"));});
+      document.getElementById('nya').addEventListener('click', () => {
+        const inputElement = document.getElementById("input");
+        const outputElement = document.getElementById("output");
+        const inputValue = inputElement.value;
+        const result = nyanify(inputValue);
+        outputElement.textContent = result;
         console.log(nyanify("test"));
       });
     </script>
