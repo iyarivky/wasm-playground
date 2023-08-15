@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyanify</title>
+</head>
+<body>
+    <input type="text" id="input" placeholder="Enter a word">
+    <button onclick="nyanify()">Nyanify</button>
+    <p id="output"></p>
+
+    <script>
+        async function nyanify() {
+            const inputElement = document.getElementById("input");
+            const outputElement = document.getElementById("output");
+
+            const go = new Go();
+            const wasmModule = await WebAssembly.instantiateStreaming(fetch("nyanify.wasm"), go.importObject);
+
+            go.run(wasmModule.instance);
+
+            const inputValue = inputElement.value;
+            const nyanifyFunc = wasmModule.instance.exports.nyanify;
+            const result = nyanifyFunc(inputValue);
+
+            outputElement.textContent = result;
+        }
+    </script>
+</body>
+</html>
